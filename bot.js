@@ -6,32 +6,29 @@ function createBot() {
     host: 'mumumelelo.falix.gg',
     port: 25565,
     username: 'AFK_24_7',
-    version: false // auto detect (important for 1.21)
-    auth: false
+    version: "1.21.1"
   })
 
   bot.on('spawn', () => {
-    console.log("✅ Bot joined server")
+    console.log("✅ Joined server")
 
-    // VERY LIGHT anti‑AFK (no chunk loading)
     setInterval(() => {
-      bot.setControlState('jump', true)
-
-      setTimeout(() => {
-        bot.setControlState('jump', false)
-      }, 400)
-
-    }, 45000) // every 45 sec
+      bot.swingArm()
+    }, 45000)
   })
 
-  // Auto reconnect (important for 24/7)
+  // ⭐ RESOURCE PACK AUTO ACCEPT
+  bot.on('resourcePack', (url, hash) => {
+    console.log("📦 Accepting resource pack...")
+    bot.acceptResourcePack()
+  })
+
+  bot.on('kicked', console.log)
+  bot.on('error', console.log)
+
   bot.on('end', () => {
-    console.log("❌ Disconnected... Reconnecting in 10s")
+    console.log("❌ Disconnected — Reconnecting in 10s")
     setTimeout(createBot, 10000)
-  })
-
-  bot.on('error', (err) => {
-    console.log("⚠️ Error:", err.message)
   })
 }
 
