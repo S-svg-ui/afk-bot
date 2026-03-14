@@ -3,10 +3,11 @@ const mineflayer = require('mineflayer')
 function createBot() {
 
   const bot = mineflayer.createBot({
-    host: 'YOUR_SERVER_IP',
+    host: 'mumumelelo.falix.gg',
     port: 25565,
     username: 'AFK_24_7',
     version: false // auto detect (important for 1.21)
+    auth: false
   })
 
   bot.on('spawn', () => {
